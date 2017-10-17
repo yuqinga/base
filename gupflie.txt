@@ -1,0 +1,43 @@
+
+//1. 引入gulp
+var gulp = require("gulp");
+//2. 引入压缩css的模块.
+var cssmin = require("gulp-cssmin");
+
+var uglify = require("gulp-uglify");
+
+var concat = require("gulp-concat");
+
+var htmlmin = require("gulp-htmlmin");
+
+
+//2.创建任务.
+gulp.task("testTask", function () {
+    console.log("这是1个新的任务！");
+
+});
+
+//3.创建任务 压缩css代码
+gulp.task("yscss", function () {
+    gulp.src("./src/**/*.css")
+        .pipe(cssmin())
+        .pipe(gulp.dest("./dist"));
+});
+
+//4.压缩js代码
+gulp.task("ysjs", function () {
+    gulp.src(["./dist/assets/js/all.js"])
+        .pipe(uglify())
+        .pipe(gulp.dest("./dist/assets/js"));
+})
+
+//5. 压缩html
+gulp.task("yshtml", function () {
+    gulp.src("./src/**/*.html")
+        .pipe(htmlmin({
+            removeEmptyAttributes: true,
+            collapseWhitespace: true,
+            removeComments: true,
+        }))
+        .pipe(gulp.dest("./dist"));
+});
